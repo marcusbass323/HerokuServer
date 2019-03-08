@@ -8,7 +8,7 @@ server.use(cors())
 const PORT = process.env.PORT || 7000;
 
 //GET / ENDPOINT
-server.get('/home', (req, res) => {
+server.get('/', (req, res) => {
     console.log('Rendering Welcome Message')
     res.send('Welcome to API')
 });
