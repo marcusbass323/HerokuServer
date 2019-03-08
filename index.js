@@ -1,3 +1,5 @@
+const PORT = process.env.PORT || 7000;
+
 const express = require('express')
 const server = express();
 var cors = require('cors');
@@ -5,7 +7,7 @@ var cors = require('cors');
 server.use(express.json());
 server.use(cors())
 
-PORT = process.env.PORT || 7000;
+const PORT = process.env.PORT || 7000;
 
 //GET / ENDPOINT
 server.get('/home', (req, res) => {
