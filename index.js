@@ -13,4 +13,9 @@ server.get('/', (req, res) => {
     res.send('Welcome to API')
 });
 
+server.get('/users', (req, res) => {
+    console.log('Rendering Welcome Message')
+    res.send('Welcome to API')
+});
+
 server.listen(PORT, () => console.log(`running on port ${PORT}`));
