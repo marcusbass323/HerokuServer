@@ -19,7 +19,7 @@ server.get('/api/users', (req, res) => {
 });
 
 //POST CUSTOMERS ENDPOINT
-server.post('/users', (req, res) => {
+server.post('/api/users', (req, res) => {
     console.log('Posting new customer data')
     const customer = req.body; 
     console.log(req.body)
