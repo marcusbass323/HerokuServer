@@ -24,6 +24,7 @@ server.get('/', (req, res) => {
     res.send('Welcome to the API')
 });
 
+//USERS ENDPOINT
 server.get('/users', (req, res) => {
     console.log('Retrieving acustomer data')
     db('customers').then(rows => {
@@ -32,6 +33,32 @@ server.get('/users', (req, res) => {
         res.status(500).json({err: "Can't retrieve data"})
     })
 });
+
+//CUSTOMERS ENDPOINT
+server.get('/customers', (req, res) => {
+    console.log('Retrieving customer list')
+    db_helpers.getCustomers()
+        .then(customerInfo => {
+            res.send(customerInfo)
+        })
+        .catch(err => {
+            res.status(500).send(err);
+    })
+})
+
+//GET BY ID ENDPOINTS
+server.get('/customers/:id', (req, res) => {
+    console.log('Retrieving customer by ID')
+
+    const { id } = req.params;
+    db('customers').where('id', id)
+        .then(rows => {
+            res.json(rows);
+        }).catch(err => {
+        res.status(500).json({err: 'Failed to find customer'})
+    })
+})
+
 
 //POST CUSTOMERS ENDPOINT
 server.post('/login', (req, res) => {
@@ -43,6 +70,19 @@ server.post('/login', (req, res) => {
         res.status(201).json(ids);
     }).catch(err => {
         res.status(500).json({err: 'Failed to register'})
+    })
+})
+
+//POST PEOPLE10 ENDPOINT
+server.post('/customers', (req, res) => {
+    console.log('Posting new customer data')
+    const customer = req.body; 
+    console.log(req.body)
+    db('customers').insert(customer)
+    .then(ids => {
+        res.status(201).json(ids);
+    }).catch(err => {
+        res.status(500).json({err: 'Failed to insert customer'})
     })
 })
 
@@ -58,5 +98,19 @@ server.post('/register', (req, res) => {
         res.status(500).json({err: 'Failed to insert customer'})
     })
 })
+
+// DELETE ENDPOINT
+server.delete('/customers/:id', (req, res) => {
+    console.log('Deleting customer by id')
+    const { id } = req.params;
+    const customer = req.body;
+    db('customers').where('id', id).delete(customer)
+        .then(rowCount => {
+            res.json(customers);
+        }).catch(err => {
+        res.status(201).json({err: 'Failed to delete customer record'})
+    })
+})
+
 
 server.listen(PORT, () => console.log(`running on port ${PORT}`));
