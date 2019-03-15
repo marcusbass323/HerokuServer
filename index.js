@@ -97,6 +97,21 @@ server.post('/register', (req, res) => {
     })
 })
 
+//PUT ENDPOINT
+server.put('/customers/:id', (req, res) => {
+    console.log('Updating customer info')
+    const { id } = req.params;
+    const customer = req.body;
+    console.log(req.body)
+    db('people10').where('id', id).update(customer)
+        .then(rowCount => {
+        res.json(rowCount)
+        }).catch(err => {
+        res.status(500).json({err: 'Failed to update customer record'})
+    })
+})
+
+
 // DELETE ENDPOINT
 server.delete('/customers/:id', (req, res) => {
     console.log('Deleting customer by id')
