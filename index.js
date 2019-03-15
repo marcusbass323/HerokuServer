@@ -37,14 +37,12 @@ server.get('/users', (req, res) => {
 //CUSTOMERS ENDPOINT
 server.get('/customers', (req, res) => {
     console.log('Retrieving customer list')
-    db_helpers.getCustomers()
-        .then(customerInfo => {
-            res.send(customerInfo)
-        })
-        .catch(err => {
-            res.status(500).send(err);
+    db('people10').then(rows => {
+        res.json(rows);
+    }).catch(err => {
+        res.status(500).json({err: "Can't retrieve data"})
     })
-})
+});
 
 //GET BY ID ENDPOINTS
 server.get('/customers/:id', (req, res) => {
