@@ -78,7 +78,7 @@ server.post('/customers', (req, res) => {
     console.log('Posting new customer data')
     const customer = req.body; 
     console.log(req.body)
-    db('customers').insert(customer)
+    db('people10').insert(customer)
     .then(ids => {
         res.status(201).json(ids);
     }).catch(err => {
