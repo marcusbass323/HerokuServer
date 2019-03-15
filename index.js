@@ -49,7 +49,7 @@ server.get('/customers/:id', (req, res) => {
     console.log('Retrieving customer by ID')
 
     const { id } = req.params;
-    db('customers').where('id', id)
+    db('people10').where('id', id)
         .then(rows => {
             res.json(rows);
         }).catch(err => {
@@ -102,7 +102,7 @@ server.delete('/customers/:id', (req, res) => {
     console.log('Deleting customer by id')
     const { id } = req.params;
     const customer = req.body;
-    db('customers').where('id', id).delete(customer)
+    db('people10').where('id', id).delete(customer)
         .then(rowCount => {
             res.json(customers);
         }).catch(err => {
